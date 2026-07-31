@@ -1,0 +1,112 @@
+{
+  "name": "@hraness/mallleable-text",
+  "version": "0.1.0",
+  "description": "Source-backed plain-text authoring for Convex and React applications.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "./src/client/index.ts",
+    "./src/component/_generated/component.ts",
+    "./src/component/convex.config.ts",
+    "./src/react/index.ts",
+    "./src/test.ts"
+  ],
+  "packageManager": "bun@1.3.14",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hraness/mallleable-text.git"
+  },
+  "homepage": "https://github.com/hraness/mallleable-text#readme",
+  "bugs": {
+    "url": "https://github.com/hraness/mallleable-text/issues"
+  },
+  "keywords": [
+    "typescript",
+    "convex",
+    "react",
+    "inline-editing",
+    "content-management",
+    "plain-text"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/client/index.ts",
+      "import": "./dist/client/index.js"
+    },
+    "./_generated/component.js": {
+      "types": "./src/component/_generated/component.ts",
+      "import": "./dist/component/_generated/component.js"
+    },
+    "./convex.config.js": {
+      "types": "./src/component/convex.config.ts",
+      "import": "./dist/component/convex.config.js"
+    },
+    "./react": {
+      "types": "./src/react/index.ts",
+      "import": "./dist/react/index.js"
+    },
+    "./test": {
+      "types": "./src/test.ts",
+      "import": "./dist/test.js"
+    }
+  },
+  "main": "./dist/client/index.js",
+  "types": "./src/client/index.ts",
+  "files": [
+    "dist",
+    "src/client/index.ts",
+    "src/component/_generated/api.ts",
+    "src/component/_generated/component.ts",
+    "src/component/_generated/dataModel.ts",
+    "src/component/_generated/server.ts",
+    "src/component/convex.config.ts",
+    "src/component/persistence.ts",
+    "src/component/schema.ts",
+    "src/model.ts",
+    "src/react/account-control.tsx",
+    "src/react/contract.ts",
+    "src/react/controller.tsx",
+    "src/react/index.ts",
+    "src/react/marker.tsx",
+    "src/react/reducer.ts",
+    "src/react/selection.ts",
+    "src/test.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun -e 'await (await import(\"node:fs/promises\")).rm(\"./dist\", { recursive: true, force: true })' && bun build ./src/client/index.ts ./src/component/_generated/component.ts ./src/component/convex.config.ts ./src/react/index.ts ./src/test.ts --outdir ./dist --root ./src --target browser --format esm --splitting --packages external",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test ./src",
+    "codegen": "convex codegen --component-dir ./src/component",
+    "test:package": "bun run ./scripts/package-smoke.ts",
+    "check": "bun run typecheck && bun run build && bun run test:package && bun run test",
+    "prepack": "bun run check"
+  },
+  "peerDependencies": {
+    "convex": ">=1.42.0 <2.0.0",
+    "convex-test": ">=0.0.54 <1.0.0",
+    "react": ">=18.3.0 <20.0.0",
+    "react-dom": ">=18.3.0 <20.0.0"
+  },
+  "peerDependenciesMeta": {
+    "convex-test": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.14",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "convex": "^1.42.3",
+    "convex-test": "^0.0.54",
+    "fast-check": "^4.8.0",
+    "linkedom": "^0.18.13",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "typescript": "^6.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
