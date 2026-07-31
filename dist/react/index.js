@@ -359,6 +359,13 @@ function selectionDirection(selection, range) {
   const focusAtEnd = sameBoundary(selection.focusNode, selection.focusOffset, range.endContainer, range.endOffset);
   return focusAtStart && !focusAtEnd ? "backward" : "forward";
 }
+function isInsideSurrogatePair(text, offset) {
+  if (offset <= 0 || offset >= text.length)
+    return false;
+  const before = text.charCodeAt(offset - 1);
+  const after = text.charCodeAt(offset);
+  return before >= 55296 && before <= 56319 && after >= 56320 && after <= 57343;
+}
 function readMalleableTextSelection(selection, root, contextLength = DEFAULT_CONTEXT_LENGTH) {
   if (selection === null || selection.rangeCount !== 1 || selection.isCollapsed || !Number.isSafeInteger(contextLength) || contextLength < 0) {
     return null;
@@ -401,6 +408,10 @@ function readMalleableTextSelection(selection, root, contextLength = DEFAULT_CON
     return null;
   }
   const direction = selectionDirection(selection, range);
+  const rawPrefixStart = Math.max(0, start - contextLength);
+  const prefixStart = isInsideSurrogatePair(text, rawPrefixStart) ? rawPrefixStart + 1 : rawPrefixStart;
+  const rawSuffixEnd = Math.min(text.length, end + contextLength);
+  const suffixEnd = isInsideSurrogatePair(text, rawSuffixEnd) ? rawSuffixEnd - 1 : rawSuffixEnd;
   return {
     anchor: focusRectangle(range, selection, anchorMarker, direction),
     descriptor,
@@ -409,9 +420,9 @@ function readMalleableTextSelection(selection, root, contextLength = DEFAULT_CON
     range: {
       end,
       exact,
-      prefix: text.slice(Math.max(0, start - contextLength), start),
+      prefix: text.slice(prefixStart, start),
       start,
-      suffix: text.slice(end, end + contextLength)
+      suffix: text.slice(end, suffixEnd)
     }
   };
 }

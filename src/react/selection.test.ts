@@ -179,6 +179,62 @@ describe("readMalleableTextSelection", () => {
     });
   });
 
+  test("does not split an emoji at the prefix context boundary", () => {
+    const document = installDocument("<p>😀abcX</p>");
+    const root = marker(document);
+    const text = root.firstChild;
+    if (text === null) throw new Error("Prefix fixture missing.");
+    const range = new TestRange({
+      endContainer: text,
+      endOffset: 6,
+      startContainer: text,
+      startOffset: 5,
+      text: "X",
+    });
+
+    expect(readMalleableTextSelection(testSelection({
+      anchorNode: text,
+      anchorOffset: 5,
+      focusNode: text,
+      focusOffset: 6,
+      range,
+    }), document, 4)?.range).toEqual({
+      end: 6,
+      exact: "X",
+      prefix: "abc",
+      start: 5,
+      suffix: "",
+    });
+  });
+
+  test("does not split an emoji at the suffix context boundary", () => {
+    const document = installDocument("<p>Xabc😀</p>");
+    const root = marker(document);
+    const text = root.firstChild;
+    if (text === null) throw new Error("Suffix fixture missing.");
+    const range = new TestRange({
+      endContainer: text,
+      endOffset: 1,
+      startContainer: text,
+      startOffset: 0,
+      text: "X",
+    });
+
+    expect(readMalleableTextSelection(testSelection({
+      anchorNode: text,
+      anchorOffset: 0,
+      focusNode: text,
+      focusOffset: 1,
+      range,
+    }), document, 4)?.range).toEqual({
+      end: 1,
+      exact: "X",
+      prefix: "",
+      start: 0,
+      suffix: "abc",
+    });
+  });
+
   test("accepts element boundary points without flattening the DOM", () => {
     const document = installDocument("<p><span>First</span> and last</p>");
     const root = marker(document);
