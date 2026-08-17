@@ -1,15 +1,14 @@
 # Security
 
-Report a suspected vulnerability through GitHub's private vulnerability reporting for `hraness/mallleable-text`. Do not put sensitive details in a public issue.
+Malleable Text is retired. No version receives security fixes, and no new release is planned. Existing consumers should remove the dependency or maintain their own reviewed fork before relying on it.
+
+GitHub's private vulnerability reporting remains available for responsible disclosure, but a report does not imply a response, fix, or release. Do not put sensitive details in a public issue.
 
 ## Supported versions
 
 | Version | Security fixes |
 | --- | --- |
-| Latest stable version tag | Supported |
-| Earlier tags and untagged branches | Not supported |
-
-Maintainers will coordinate disclosure and publish a new immutable tag when a fix is ready.
+| `v0.1.0` and all branches | Not supported |
 
 ## Security boundary
 

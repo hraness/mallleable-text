@@ -1,12 +1,15 @@
 # Malleable Text
 
+> [!IMPORTANT]
+> Malleable Text is retired. No current Hraness application uses this package, and no maintenance, security updates, or compatibility work is planned. The [`v0.1.0` tag](https://github.com/hraness/mallleable-text/tree/v0.1.0) and [immutable GitHub release](https://github.com/hraness/mallleable-text/releases/tag/v0.1.0) are retained for existing Git-pinned installs and historical reference. The remaining documentation describes that release.
+
 Malleable Text keeps prose in source and lets authorized authors revise a selected passage on the rendered page. An isolated Convex Component stores the current plain-text override. The host application keeps control of sign-in, authorization, server rendering, and data flow.
 
 Source text remains useful when persistence or JavaScript is unavailable. Stable semantic IDs let an override follow its content when components, files, routes, or DOM structure change.
 
-## Install
+## Archived release
 
-Pin the public repository to an immutable tag:
+An existing project that must reproduce the final release can pin its immutable tag:
 
 ```json
 {
@@ -16,7 +19,7 @@ Pin the public repository to an immutable tag:
 }
 ```
 
-Then install with Bun:
+Install that pinned release with Bun:
 
 ```sh
 bun install
