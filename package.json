@@ -1,7 +1,7 @@
 {
   "name": "@hraness/mallleable-text",
   "version": "0.1.0",
-  "description": "Source-backed plain-text authoring for Convex and React applications.",
+  "description": "Retired package for source-backed plain-text authoring in Convex and React applications.",
   "license": "MIT",
   "type": "module",
   "sideEffects": [
