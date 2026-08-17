@@ -18,6 +18,7 @@
 - Use Bun for repository commands. Keep each published ESM export within its documented Convex, server, React, or browser boundary.
 - Follow `WRITING.md` for internal prose and `STYLE.md` for public prose.
 - Apply unreasonably robust programming when agent work is cheap. Model invalid states out of existence and pair readable regression examples with property tests for general laws.
+- Deliver changes to `main` through a current-head pull request. Keep the stable `Required` CI job green, resolve every review thread, and serialize merges. Human approval stays optional while one regular maintainer would otherwise self-review. Never force-push or bypass the gate.
 - Pin Hraness dependencies to reviewed immutable releases or full commits. Never connect repositories with sibling paths, Git submodules, or coordinated `main` assumptions.
 - Extract a shared package only after two concrete consumers need the same stable interface. Keep shared packages product-neutral; consuming applications own authentication, product schema, and product composition.
 - For UI work, take stable primitives and tokens from a shared design kit only at an immutable version. Keep product layout, copy, navigation, and visual contracts in the consuming product.
